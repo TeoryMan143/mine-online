@@ -44,8 +44,8 @@ public class BoardInitializer {
     return new BoardInitializer(SessionRole.HOST, board);
   }
 
-  public static BoardInitializer joinExisting(Board board) {
-    return new BoardInitializer(SessionRole.JOINED, board);
+  public static BoardInitializer joinExisting() {
+    return new BoardInitializer(SessionRole.JOINED, new Board(9, 9, 10));
   }
 
   public synchronized void startHost() throws IOException {

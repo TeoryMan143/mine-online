@@ -46,7 +46,7 @@ public class Main {
                 int port = parseIntOrDefault(scanner.nextLine().trim(), 8080);
 
                 Board placeholder = new Board(9, 9, 10);
-                session = BoardInitializer.joinExisting(placeholder);
+                session = BoardInitializer.joinExisting();
                 try {
                     session.connectToExistingGame(host, port);
                 } catch (IOException e) {
