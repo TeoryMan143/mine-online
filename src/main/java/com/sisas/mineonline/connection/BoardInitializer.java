@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -56,6 +58,7 @@ public class BoardInitializer {
     if (role != SessionRole.HOST) {
       throw new IllegalStateException("This session is not configured as host");
     }
+
     if (running) {
       return;
     }
@@ -68,6 +71,25 @@ public class BoardInitializer {
       closeQuietly(createdSocket);
       running = false;
       throw e;
+    }
+  }
+
+  public int getHostPort() {
+    ServerSocket socketRef = serverSocket;
+    if (socketRef == null) {
+      throw new IllegalStateException("Host server is not running");
+    }
+    return socketRef.getLocalPort();
+  }
+
+  public String getHostAddress() {
+    if (role != SessionRole.HOST) {
+      throw new IllegalStateException("Only host sessions expose a host address");
+    }
+    try {
+      return InetAddress.getLocalHost().getHostAddress();
+    } catch (UnknownHostException e) {
+      throw new IllegalStateException("Unable to resolve local host address", e);
     }
   }
 

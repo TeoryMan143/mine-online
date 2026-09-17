@@ -32,7 +32,8 @@ public class Main {
                     return;
                 }
                 display = new BoardDisplay(session);
-                System.out.println("Hosting game. Type commands like: \"1 0 0\" (reveal) or \"2 1 1\" (flag). Type exit to quit.");
+                System.out.println("Hosting game on " + session.getHostAddress() + ":" + session.getHostPort() + ".");
+                System.out.println("Type commands like: \"1 0 0\" (reveal) or \"2 1 1\" (flag). Type exit to quit.");
                 display.display("");
 
             } else if ("2".equals(choice) || "join".equalsIgnoreCase(choice)) {
